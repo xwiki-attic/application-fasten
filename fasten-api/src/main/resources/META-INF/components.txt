@@ -1,0 +1,5 @@
+org.xwiki.contrib.fasten.internal.FASTENInitializerListener
+org.xwiki.contrib.fasten.internal.FASTENJob
+org.xwiki.contrib.fasten.internal.FASTENScheduler
+org.xwiki.contrib.fasten.internal.FASTENVulnerabilityScanner
+org.xwiki.contrib.fasten.internal.FASTENVulnerabilityStore
