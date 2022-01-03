@@ -17,47 +17,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.xwiki.contrib.fasten.internal;
+package org.xwiki.contrib.fasten.internal.script;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import org.xwiki.component.annotation.Component;
+import org.xwiki.contrib.fasten.FASTENExtension;
+import org.xwiki.contrib.fasten.internal.FASTENSolrExtension;
+import org.xwiki.script.internal.safe.ScriptSafeProvider;
 
 /**
- * @version $Id$
+ * Provide safe {@link FASTENExtension}.
+ * 
+ * @version $Id: d028670c06429f7b26e9faa8b7a5ef4a47c90246 $
  */
-public class FASTENVulnerability
+@Component
+@Singleton
+public class SafeFASTENExtensionProvider implements ScriptSafeProvider<FASTENSolrExtension>
 {
-    private final String id;
-
-    private final String description;
-
-    private final String severity;
-
-    public FASTENVulnerability(String id, String description, String severity)
-    {
-        this.id = id;
-        this.description = description;
-        this.severity = severity;
-    }
-
     /**
-     * @return the id
+     * The provider of instances safe for public scripts.
      */
-    public String getId()
-    {
-        return this.id;
-    }
+    @Inject
+    @SuppressWarnings("rawtypes")
+    private ScriptSafeProvider defaultSafeProvider;
 
-    /**
-     * @return the description
-     */
-    public String getDescription()
+    @Override
+    public <S> S get(FASTENSolrExtension unsafe)
     {
-        return this.description;
-    }
-
-    /**
-     * @return the severity
-     */
-    public String getSeverity()
-    {
-        return this.severity;
+        return (S) new SafeFASTENExtension<FASTENExtension>(unsafe, this.defaultSafeProvider);
     }
 }

@@ -17,37 +17,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.xwiki.contrib.fasten.internal;
+package org.xwiki.contrib.fasten;
 
-import java.util.Arrays;
 import java.util.List;
 
-import org.xwiki.job.DefaultRequest;
-import org.xwiki.job.Request;
+import org.xwiki.extension.index.IndexedExtension;
 
 /**
+ * Expose FASTEN gathered metadata associated to an extension.
+ * 
  * @version $Id$
  */
-public class FASTENRequest extends DefaultRequest
+public interface FASTENExtension extends IndexedExtension
 {
     /**
-     * The id of this job.
+     * @return the known security vulnerabilities associated with this extension
      */
-    public static final List<String> ID = Arrays.asList("fasten");
-
-    /**
-     * @param request the request to copy
-     */
-    public FASTENRequest(Request request)
-    {
-        super(request);
-    }
-
-    /**
-     * Default constructor.
-     */
-    public FASTENRequest()
-    {
-        setId(ID);
-    }
+    List<FASTENVulnerability> getVulnerabilities();
 }

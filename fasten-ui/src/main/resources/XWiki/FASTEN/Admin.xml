@@ -31,17 +31,30 @@
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <version>1.1</version>
-  <title>Admin</title>
+  <title>FASTEN administration</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
-  <content></content>
+  <content>== Vulnerabilities
+
+{{velocity}}
+#set($extensions = $services.extension.fasten.search($services.extension.fasten.newQuery('')))
+#if ($extensions.size &gt; 0)
+  #foreach ($extension in $extensions)
+    * $extension.id
+  #end
+#else
+  {{success}}
+    No vulnerability found in installed extensions.
+  {{/success}}
+#end
+{{/velocity}}</content>
   <object>
     <name>XWiki.FASTEN.Admin</name>
     <number>0</number>
     <className>XWiki.ConfigurableClass</className>
-    <guid>5e8cf4f0-8404-4e92-bde8-b195b03a782e</guid>
+    <guid>5be407e1-81fb-487d-baea-5559700dbdcb</guid>
     <class>
       <name>XWiki.ConfigurableClass</name>
       <customClass/>
@@ -110,21 +123,6 @@
         <valueField/>
         <classType>com.xpn.xwiki.objects.classes.PageClass</classType>
       </configurationClass>
-      <configureGlobally>
-        <customDisplay/>
-        <defaultValue/>
-        <disabled>0</disabled>
-        <displayFormType>checkbox</displayFormType>
-        <displayType/>
-        <hint/>
-        <name>configureGlobally</name>
-        <number>4</number>
-        <prettyName>configureGlobally</prettyName>
-        <unmodifiable>0</unmodifiable>
-        <validationMessage/>
-        <validationRegExp/>
-        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
-      </configureGlobally>
       <displayBeforeCategory>
         <customDisplay/>
         <disabled>0</disabled>
@@ -234,6 +232,31 @@
         <values/>
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </propertiesToShow>
+      <scope>
+        <cache>0</cache>
+        <customDisplay/>
+        <defaultValue/>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <freeText/>
+        <hint/>
+        <largeStorage>0</largeStorage>
+        <multiSelect>0</multiSelect>
+        <name>scope</name>
+        <number>12</number>
+        <picker>1</picker>
+        <prettyName>scope</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <sort/>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <values>WIKI|SPACE|ALL_SPACES|WIKI+ALL_SPACES</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </scope>
       <sectionOrder>
         <customDisplay/>
         <disabled>0</disabled>
@@ -259,9 +282,6 @@
       <configurationClass/>
     </property>
     <property>
-      <configureGlobally>1</configureGlobally>
-    </property>
-    <property>
       <displayBeforeCategory/>
     </property>
     <property>
@@ -271,7 +291,7 @@
       <displayInSection>FASTEN</displayInSection>
     </property>
     <property>
-      <heading>FASTEN</heading>
+      <heading/>
     </property>
     <property>
       <iconAttachment/>
@@ -281,6 +301,9 @@
     </property>
     <property>
       <propertiesToShow/>
+    </property>
+    <property>
+      <scope>WIKI</scope>
     </property>
     <property>
       <sectionOrder/>

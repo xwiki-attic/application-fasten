@@ -20,6 +20,7 @@
 package org.xwiki.contrib.fasten.internal;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,11 +29,13 @@ import javax.inject.Named;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.annotation.InstantiationStrategy;
 import org.xwiki.component.descriptor.ComponentInstantiationStrategy;
+import org.xwiki.contrib.fasten.FASTENVulnerability;
 import org.xwiki.extension.InstalledExtension;
 import org.xwiki.extension.repository.InstalledExtensionRepository;
 import org.xwiki.job.AbstractJob;
 import org.xwiki.job.DefaultJobStatus;
 import org.xwiki.job.Request;
+import org.xwiki.job.event.status.JobProgressManager;
 
 /**
  * Run a FASTEN analysis on the current instance's extensions.
@@ -58,6 +61,9 @@ public class FASTENJob extends AbstractJob<FASTENRequest, DefaultJobStatus<FASTE
     @Inject
     private FASTENVulnerabilityStore vulnerabilityStore;
 
+    @Inject
+    private JobProgressManager progress;
+
     @Override
     public String getType()
     {
@@ -80,17 +86,29 @@ public class FASTENJob extends AbstractJob<FASTENRequest, DefaultJobStatus<FASTE
     @Override
     protected void runInternal() throws Exception
     {
-        // Index installed extensions
-        for (InstalledExtension extension : this.installedExtensions.getInstalledExtensions()) {
-            try {
-                // Analyze the extension
-                List<FASTENVulnerability> vulnerabilities = this.scanner.scan(extension);
+        Collection<InstalledExtension> extensions = this.installedExtensions.getInstalledExtensions();
 
-                // Store the result of the analysis
-                this.vulnerabilityStore.update(extension.getId(), vulnerabilities);
-            } catch (IOException e) {
-                this.logger.warn("Failed to search vulnerabilities for extension [{}]", extension.getId(), e);
+        this.progress.pushLevelProgress(0, this);
+
+        try {
+            // Index installed extensions
+            for (InstalledExtension extension : extensions) {
+                this.progress.startStep(this);
+
+                try {
+                    // Analyze the extension
+                    List<FASTENVulnerability> vulnerabilities = this.scanner.scan(extension);
+
+                    // Store the result of the analysis
+                    this.vulnerabilityStore.update(extension.getId(), vulnerabilities);
+
+                    // TODO: produce a notification in case of new vulnerability
+                } catch (IOException e) {
+                    this.logger.warn("Failed to search vulnerabilities for extension [{}]", extension.getId(), e);
+                }
             }
+        } finally {
+            this.progress.popLevelProgress(this);
         }
 
         // TODO: Index available compatible extensions

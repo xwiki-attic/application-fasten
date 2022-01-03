@@ -17,42 +17,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.xwiki.contrib.fasten.internal;
+package org.xwiki.contrib.fasten;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-
-import org.xwiki.bridge.event.ApplicationReadyEvent;
-import org.xwiki.observation.AbstractEventListener;
-import org.xwiki.observation.event.Event;
+import org.xwiki.extension.index.IndexedExtensionQuery;
 
 /**
- * Start the thread in charge of gathering informations about the installed extensions.
+ * Extends {@link IndexedExtensionQuery} with FASTEN specific criteria.
  * 
  * @version $Id$
  */
-public class FASTENInitializerListener extends AbstractEventListener
+public class FASTENExtensionQuery extends IndexedExtensionQuery
 {
     /**
-     * The name of this event listener (and its component hint at the same time).
+     * No filtering. Usually return everything.
      */
-    public static final String NAME = "FASTENInitializerListener";
-
-    @Inject
-    private Provider<FASTENScheduler> schedulerProvider;
-
-    /**
-     * Default constructor.
-     */
-    public FASTENInitializerListener()
+    public FASTENExtensionQuery()
     {
-        super(NAME, new ApplicationReadyEvent());
     }
 
-    @Override
-    public void onEvent(Event event, Object source, Object data)
+    /**
+     * @param query the query to execute
+     */
+    public FASTENExtensionQuery(String query)
     {
-        // Initialize the scheduler
-        this.schedulerProvider.get().initialize();
+        super(query);
     }
 }

@@ -3,3 +3,5 @@ org.xwiki.contrib.fasten.internal.FASTENJob
 org.xwiki.contrib.fasten.internal.FASTENScheduler
 org.xwiki.contrib.fasten.internal.FASTENVulnerabilityScanner
 org.xwiki.contrib.fasten.internal.FASTENVulnerabilityStore
+org.xwiki.contrib.fasten.internal.script.SafeFASTENExtensionProvider
+org.xwiki.contrib.fasten.script.FASTENExtensionIndexScriptService

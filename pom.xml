@@ -25,13 +25,13 @@
   <parent>
     <groupId>org.xwiki.contrib</groupId>
     <artifactId>parent-platform</artifactId>
-    <version>12.10</version>
+    <version>14.0-SNAPSHOT</version>
   </parent>
 
   <groupId>org.xwiki.contrib.fasten</groupId>
   <artifactId>fasten</artifactId>
   <name>FASTEN</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>FASTEN integration into XWiki</description>
 
