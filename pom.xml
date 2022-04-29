@@ -31,7 +31,7 @@
   <groupId>org.xwiki.contrib.fasten</groupId>
   <artifactId>fasten</artifactId>
   <name>FASTEN</name>
-  <version>0.1</version>
+  <version>0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>FASTEN integration into XWiki</description>
 
@@ -74,6 +74,6 @@
     <connection>scm:git:git://github.com/xwiki-contrib/application-fasten.git</connection>
     <developerConnection>scm:git:git@github.com:xwiki-contrib/application-fasten.git</developerConnection>
     <url>https://github.com/xwiki-contrib/application-fasten/tree/master</url>
-    <tag>fasten-0.1</tag>
+    <tag>HEAD</tag>
   </scm>
 </project>
