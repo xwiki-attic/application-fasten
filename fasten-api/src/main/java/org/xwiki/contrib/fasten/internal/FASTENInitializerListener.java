@@ -20,9 +20,12 @@
 package org.xwiki.contrib.fasten.internal;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 
 import org.xwiki.bridge.event.ApplicationReadyEvent;
+import org.xwiki.component.annotation.Component;
 import org.xwiki.observation.AbstractEventListener;
 import org.xwiki.observation.event.Event;
 
@@ -31,6 +34,9 @@ import org.xwiki.observation.event.Event;
  * 
  * @version $Id$
  */
+@Component
+@Named(FASTENInitializerListener.NAME)
+@Singleton
 public class FASTENInitializerListener extends AbstractEventListener
 {
     /**

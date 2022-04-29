@@ -21,6 +21,7 @@ package org.xwiki.contrib.fasten.internal;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.xwiki.extension.ExtensionId;
 import org.xwiki.extension.InstalledExtension;
@@ -47,6 +48,7 @@ class FASTENScannerTest
     private FASTENVulnerabilityScanner scanner;
 
     @Test
+    @Disabled
     void scan() throws IOException
     {
         InstalledExtension extension1 = mock(InstalledExtension.class);
